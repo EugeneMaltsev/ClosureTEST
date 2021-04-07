@@ -8,10 +8,11 @@
 import UIKit
 
 
-class ViewController: UIViewController, DataModelDelegate {
+class ViewController: UIViewController, PomodoroModelDelegate {
     
-    func didRecieveDataUpdate(data: String) {
-        stopWatchAction.text = data
+    func didRecieveTimeUpdate(times: String) {
+        displayTime(timeLabel: times)
+        
     }
     
     @IBOutlet weak var startButton: UIButton!
@@ -20,12 +21,11 @@ class ViewController: UIViewController, DataModelDelegate {
     
     @IBOutlet weak var stopWatchAction: UILabel!
     
-    var timer = PomodoroModel()
+    let model = PomodoroModel()
     
     @IBAction func startButton(_ sender: UIButton) {
         
-        timer.delegate = self
-        timer.startTimer()
+        model.startTimer()
 
         startButton.isHidden = true
         pauseButton.isHidden = false
@@ -34,7 +34,7 @@ class ViewController: UIViewController, DataModelDelegate {
     
     @IBAction func pauseButton(_ sender: UIButton) {
         
-        timer.pause()
+        model.pause()
         
         startButton.isHidden = false
         pauseButton.isHidden = true
@@ -44,16 +44,21 @@ class ViewController: UIViewController, DataModelDelegate {
     
     @IBAction func stopButton(_ sender: UIButton) {
 
-        timer.reset()
+        model.reset()
 
         stopButton.isHidden = true
         startButton.isHidden = false
         pauseButton.isHidden = true
     }
-
+    
+    func displayTime(timeLabel: String) {
+        stopWatchAction.text = timeLabel
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        }
+        model.delegate = self
+    }
 }
 
