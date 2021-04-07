@@ -18,7 +18,7 @@ class PomodoroModel {
     private var timer: Timer?
 //    private var timerBreak = Timer()
     private var count = 1500
-    private var countBreak = 300
+    private var countBreak = 250
     private var work = false
 // 1500 300
 
